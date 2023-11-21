@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String @unique
+  name     String
+  imageUrl String
+  email    String @unique
+
+  blogs        Blog[]
+  comments     Comment[]
+  nestComments NestComment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  slug  String  @unique
+  title String
+  img   String?
+
+  blogs Blog[]
+}
+
+model Blog {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  slug  String  @unique
+  title String
+  img   String?
+  views Int     @default(0)
+  desc  String
+
+  catSlug String
+  cats    Category @relation(fields: [catSlug], references: [slug])
+
+  userEmail String
+  users     User   @relation(fields: [userEmail], references: [email])
+
+  comments Comment[]
+
+  createdAt DateTime @default(now())
+}
+
+model Comment {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  desc      String
+  userEmail String
+  user      User   @relation(fields: [userEmail], references: [email])
+  postSlug  String
+  Blog      Blog   @relation(fields: [postSlug], references: [slug])
+
+  NestComments NestComment[]
+
+  createdAt DateTime @default(now())
+}
+
+model NestComment {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  desc String
+
+  userEmail String
+  user      User   @relation(fields: [userEmail], references: [email])
+
+  commentId  String   @db.ObjectId
+  parentNest Comment? @relation(fields: [commentId], references: [id])
+
+  createdAt DateTime @default(now())
+}
