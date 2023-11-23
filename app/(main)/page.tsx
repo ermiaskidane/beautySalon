@@ -12,7 +12,7 @@ import Image from 'next/image'
 
 const Home = async () => {
   const GetBlog = await db.blog.findMany()
-  console.log("getblog", GetBlog)
+  // console.log("getblog", GetBlog)
   return (
     <>
       <Banner/>

@@ -8,7 +8,7 @@ const Feature = async () => {
   console.log("@@@@@@@@@@@@@", user)
     return (
         <>
-          <Procedure />
+          {/* <Procedure /> */}
           <Appointment />
         </>
     )

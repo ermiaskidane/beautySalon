@@ -3,17 +3,17 @@
 import React, { Component, Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
-import axios from "@/lib/axios-orders";
+// import axios from "@/lib/axios-orders";
 import Loader from "@/components/Loader";
 import Comments from "@/components/sections/Comments";
-import { Blog, Category } from "@prisma/client";
+import { Blog, Category, Comment } from "@prisma/client";
 
 interface SinglePostProps {
-  blog: Blog & {cats: Category} | null
+  Ablog: Blog & {cats: Category} & {comments: Comment[]} | null
 }
 
-const SinglePost =  ({blog} : SinglePostProps) => {
-  const [post, setPost] = useState(blog);
+const SinglePost =  ({Ablog} : SinglePostProps) => {
+  const [blog, setBlog] = useState(Ablog);
   // useEffect(() => {
   //   const postId = props.match.params.id;
   //   axios.get("/posts/" + postId + ".json").then((res) => {
@@ -23,8 +23,9 @@ const SinglePost =  ({blog} : SinglePostProps) => {
   // }, []);
 
   // let renderPost = <Loader />;
+  console.log("post~~~~~~~~~~~~~~~~~~~", blog)
 
-  if (!post) {
+  if (!blog) {
     return <Loader />
   }
   return <>
@@ -33,21 +34,21 @@ const SinglePost =  ({blog} : SinglePostProps) => {
     <div className="meta-tags">
       <Link href="#" className="post-meta no-underline">
         <i className="ti-time"></i>
-        {format(post.createdAt, "MMMM do, yyyy")}
+        {format(blog.createdAt, "MMMM do, yyyy")}
       </Link>
       <Link href="#" className="post-meta no-underline">
         <i className="ti-package"></i>
-        {post.catSlug}
+        {blog.catSlug}
       </Link>
       <Link href="#" className="post-meta no-underline">
         <i className="ti-tag"></i>
-        {post.cats.title}
+        {blog.cats.title}
       </Link>
     </div>
-    <h3>{post.title}</h3>
-    <p className="text-[15px]">{post.desc}</p>
+    <h3>{blog.title}</h3>
+    <p className="text-[15px]">{blog.desc}</p>
   </article>
-  <Comments postId={post.id} />
+  <Comments comments={blog.comments} blogSlug={blog.slug} blogId={blog.id} />
 </>;
 };
 

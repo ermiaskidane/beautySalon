@@ -15,9 +15,10 @@ const Page = async({params} : pageProps) => {
     where: { id: params.blogId },
     include: {
       cats: true, // Include the related Category
+      comments: true
     },
   })
-  console.log("getblog", Ablog)
+  // console.log("getblog", Ablog)
 
   // console.log(":::::::::::::", params.blogId)
     
@@ -37,7 +38,7 @@ const Page = async({params} : pageProps) => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-8">
-                    <SinglePost blog={Ablog}/>
+                    <SinglePost Ablog={Ablog}/>
                     </div>
                     <div className="col-md-4">
                         <aside className="sidebar">

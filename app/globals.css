@@ -1100,6 +1100,10 @@ section {
   position: relative;
 }
 
+.comments .nested-thumb{
+  position: relative;
+}
+
 @media screen and (max-width: 575px) {
   .comments .single-comment {
     padding-right: 15px;
@@ -1123,6 +1127,13 @@ section {
   height: 80px;
   overflow: hidden;
   width: 80px;
+}
+
+.comments .usernested-thumb {
+  border-radius: 50%;
+  height: 40px;
+  overflow: hidden;
+  width: 40px;
 }
 
 @media screen and (max-width: 479px) {

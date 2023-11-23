@@ -1,10 +1,9 @@
 "use client";
 
 import React, { Component, useEffect, useState } from "react";
-import axios from "@/lib/axios-orders";
 import Loader from "../Loader";
 import Post from "../post";
-import { Blog } from "@prisma/client";
+import { Post as Blog } from "@prisma/client";
 
 interface procedureProps {
   blogs: Blog[]
