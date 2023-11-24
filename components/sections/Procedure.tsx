@@ -3,7 +3,7 @@
 import React, { Component, useEffect, useState } from "react";
 import Loader from "../Loader";
 import Post from "../post";
-import { Post as Blog } from "@prisma/client";
+import { Blog } from "@prisma/client";
 
 interface procedureProps {
   blogs: Blog[]
@@ -31,7 +31,7 @@ const Procedure = ({blogs} : procedureProps) => {
 
   let renderProcedures = <Loader />;
   if (procedures !== null) {
-    renderProcedures = procedures.map((procedure) => {
+    renderProcedures = procedures.slice(0, 3).map((procedure) => {
       return (
         <Post
           key={procedure.id}

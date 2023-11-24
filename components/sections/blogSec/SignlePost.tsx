@@ -1,11 +1,12 @@
 "use client"
 
-import React, { Component, Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
+import DOMPurify from 'dompurify'
 // import axios from "@/lib/axios-orders";
 import Loader from "@/components/Loader";
-import Comments from "@/components/sections/Comments";
+import Comments from "@/components/sections/blogSec/Comments";
 import { Blog, Category, Comment } from "@prisma/client";
 
 interface SinglePostProps {
@@ -24,6 +25,13 @@ const SinglePost =  ({Ablog} : SinglePostProps) => {
 
   // let renderPost = <Loader />;
   console.log("post~~~~~~~~~~~~~~~~~~~", blog)
+
+  const sanitizedData = (): { __html: string } => {
+    if (!blog.desc) {
+      return { __html: '' }; // Handle empty input
+    }
+    return {__html: DOMPurify.sanitize(blog.desc)}
+  }
 
   if (!blog) {
     return <Loader />
@@ -46,7 +54,12 @@ const SinglePost =  ({Ablog} : SinglePostProps) => {
       </Link>
     </div>
     <h3>{blog.title}</h3>
-    <p className="text-[15px]">{blog.desc}</p>
+
+    {blog?.desc && (
+          <div className="text-[15px]" dangerouslySetInnerHTML={sanitizedData()}/> 
+        )}
+    {/* <div className="text-[15px]" dangerouslySetInnerHTML={sanitizedData()}/> */}
+    {/* <p className="text-[15px]" >{blog.desc}</p> */}
   </article>
   <Comments comments={blog.comments} blogSlug={blog.slug} blogId={blog.id} />
 </>;

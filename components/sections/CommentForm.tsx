@@ -25,10 +25,10 @@ const fetcher = async (url: any) => {
 }
 
 const CommentForm = ({blogSlug, blogId}: commentFormProps) => {
-  const [loading, setLoading] = useState(false);
-  const [comment, setComment] = useState("");
-  const { isSignedIn, userId } = useAuth();
-  const router = useRouter();
+  // const [loading, setLoading] = useState(false);
+  // const [comment, setComment] = useState("");
+  // const { isSignedIn, userId } = useAuth();
+  // const router = useRouter();
 
   // const inputChangeHandler = (e) => {
   //   const updatedComment = { ...comment };
@@ -45,30 +45,30 @@ const CommentForm = ({blogSlug, blogId}: commentFormProps) => {
 
   // console.log("££££££££££333", comment)
 
-  const onSubmitHandler = async(e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      await axios.post("/api/comments", {comment, blogSlug, blogId})
-      toast.success('Comment Created.');
-      router.refresh();
-      setComment("")
-    }catch (error) {
-      toast.error('Something went wrong');
-    } finally {
-      setLoading(false);
-      // setOpen(false);
-    }
+  // const onSubmitHandler = async(e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   try {
+  //     setLoading(true);
+  //     await axios.post("/api/comments", {comment, blogSlug, blogId})
+  //     toast.success('Comment Created.');
+  //     router.refresh();
+  //     setComment("")
+  //   }catch (error) {
+  //     toast.error('Something went wrong');
+  //   } finally {
+  //     setLoading(false);
+  //     // setOpen(false);
+  //   }
     
-      // .then((res) => {
-      //   props.onFormSubmit();
-      //   toast.success("Comment posted successfully");
-      //   setComment(initComment);
-      // })
-      // .catch((err) => {
-      //   console.log(err.message);
-      // });
-  };
+  //     // .then((res) => {
+  //     //   props.onFormSubmit();
+  //     //   toast.success("Comment posted successfully");
+  //     //   setComment(initComment);
+  //     // })
+  //     // .catch((err) => {
+  //     //   console.log(err.message);
+  //     // });
+  // };
 
   return (
     <React.Fragment>

@@ -1,7 +1,15 @@
 import React from "react";
-import Posts from "../Posts";
+import Posts from "../../Posts";
+import { db } from "@/lib/db";
 
-const Blog = () => {
+const Blog = async() => {
+  const GetBlog = await db.blog.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
+
+  console.log("££££££££££££3", GetBlog)
   return (
     // Blog section start
     <section className="blog">
@@ -20,7 +28,7 @@ const Blog = () => {
         </div>
 
         {/* Posts */}
-        <Posts />
+        <Posts blogs={GetBlog} />
       </div>
     </section>
     // Blog section end

@@ -1,9 +1,14 @@
 "use client"
 import React, { Component, useEffect, useState } from "react";
 import Post from "./post";
+import { Blog } from "@prisma/client";
 // import axios from "../axios-orders";
 
-const Posts = (props: any) => {
+interface PostsProps {
+  blogs: Blog[]
+}
+
+const Posts = ({blogs} : PostsProps) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -19,14 +24,14 @@ const Posts = (props: any) => {
 
   // console.log(this.props)
 
-  const renderPosts = posts.map((post) => {
+  const renderPosts = blogs.map((post) => {
     return (
       <Post
         key={post.id}
         id={post.id}
         title={post.title}
-        excerpt={post.excerpt}
-        body={post.body}
+        excerpt={post.desc}
+        body={post.catSlug}
       />
     );
   });

@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import SinglePost from "@/components/sections/SignlePost";
+import SinglePost from "@/components/sections/blogSec/SignlePost";
 import { db } from "@/lib/db";
 
 interface pageProps {
@@ -16,7 +16,7 @@ const Page = async({params} : pageProps) => {
     include: {
       cats: true, // Include the related Category
       comments: true
-    },
+    }
   })
   // console.log("getblog", Ablog)
 
