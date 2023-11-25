@@ -16,14 +16,27 @@ const Home = async () => {
       createdAt: 'desc',
     },
   })
-  // console.log("getblog", GetBlog)
+
+  const GetTestimonials = await db.testimonial.findMany({
+    include: {
+      users: {
+        select: {
+          name: true,
+        }
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
+  // console.log("GetTestimonials", GetTestimonials)
   return (
     <>
       <Banner/>
       <AboutSec />
       <Service />
       <Procedure  blogs={GetBlog}/>
-      <Testimonial />
+      <Testimonial testimonials={GetTestimonials} />
       <Team />
       <Appointment />
       <Blog />

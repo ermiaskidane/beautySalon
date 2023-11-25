@@ -9,7 +9,7 @@ const Blog = async() => {
     },
   })
 
-  console.log("££££££££££££3", GetBlog)
+  // console.log("££££££££££££3", GetBlog)
   return (
     // Blog section start
     <section className="blog">

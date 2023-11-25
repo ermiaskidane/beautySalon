@@ -10,7 +10,7 @@ const Banner = () => {
       <img src="/images/spa.png" alt="" />
         {/* <img src={require("../assets/images/spa.png")} alt="" /> */}
       </div>
-      <div className="container">
+      <div className="container lg:!max-w-6xl">
         <div className="row">
           <div className="col-lg-6">
             <div className="banner-content">

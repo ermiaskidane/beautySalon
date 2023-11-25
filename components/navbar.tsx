@@ -6,6 +6,12 @@ import { Menu } from 'lucide-react';
 import Loader from "./Loader";
 import { usePathname } from "next/navigation";
 import { UserButton, useAuth } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
 
 const Navbar = (props: any) => {
   const pathName = usePathname();
@@ -29,7 +35,7 @@ const Navbar = (props: any) => {
   return (
     // Header start
     <header className={"header" + absHeader}>
-      <div className="container">
+      <div className="container lg:!max-w-6xl">
         <div className="row align-items-end">
           <div className="col-md-3">
             <Link href="/" className="logo">
@@ -65,9 +71,19 @@ const Navbar = (props: any) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/blog" onClick={clearStateHandler}>
-                    blog
-                  </Link>
+                    <HoverCard>
+                      <HoverCardTrigger asChild>
+                        <p  className="py-2 px-3 m-0 text-sm cursor-pointer md:py-0 hover:text-[#ff817e]">BLOG</p>
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-80">
+                        <div className="flex justify-between space-x-4">
+                          <div className="">
+                            <Link href="/blog"  onClick={clearStateHandler} className="text-sm ">Blog post</Link>
+                            <Link href="/write"  onClick={clearStateHandler} className="text-sm">Write blog</Link>
+                          </div>
+                        </div>
+                      </HoverCardContent>
+                    </HoverCard>
                 </li>
                 <li>
                   <Link href="/contact" onClick={clearStateHandler}>

@@ -736,7 +736,7 @@ Quill librbary
 
 .testimonial .single-tst img {
   margin: 0 auto 45px;
-  width: 59px;
+  width: 59px !important;
 }
 
 .testimonial .single-tst p {
@@ -752,7 +752,7 @@ Quill librbary
   border-radius: 50%;
   margin-bottom: 22px;
   height: 76px;
-  width: 76px;
+  width: 76px !important;
 }
 
 .testimonial .single-tst .client-info p {

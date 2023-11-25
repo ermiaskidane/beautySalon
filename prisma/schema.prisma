@@ -27,6 +27,7 @@ model User {
   blogs        Blog[]
   comments     Comment[]
   nestComments NestComment[]
+  testimonials Testimonial[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -82,6 +83,17 @@ model NestComment {
 
   commentId  String   @db.ObjectId
   parentNest Comment? @relation(fields: [commentId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model Testimonial {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  desc        String
+  designation String
+
+  userEmail String
+  users     User   @relation(fields: [userEmail], references: [email])
 
   createdAt DateTime @default(now())
 }

@@ -9,12 +9,17 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 
 import dynamic from "next/dynamic";
+import { Testimonial, User } from "@prisma/client";
 const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
   ssr: false,
 });
 
-const Testimonial = () => {
-  const [testimonials, setTestimonials] = useState([]);
+interface TestimonialProps {
+  testimonials: (Testimonial & {users: {name: String}})[]
+}
+
+const Testimonial = ({testimonials}: TestimonialProps) => {
+  // const [testimonials, setTestimonials] = useState([]);
 
   useEffect(() => {
     // axios
@@ -41,15 +46,15 @@ const Testimonial = () => {
         loop
         margin={0}
         nav={false}
-      >
+      > 
         {testimonials.map((tsml) => {
           return (
             <SingleTestimonial
-              key={tsml.userId}
-              id={tsml.userId}
-              name={tsml.userName}
+              key={tsml.id}
+              id={tsml.id}
+              name={tsml.users.name}
               designation={tsml.designation}
-              body={tsml.body}
+              body={tsml.desc}
             />
           );
         })}
