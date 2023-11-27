@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 // import Comment from "@/components/comment";
 // import axios from "../axios-orders";
-import CommentForm from "../CommentForm";
+// import CommentForm from "../CommentForm";
 import Loader from "../../Loader";
 import useSWR from "swr";
 import { Blog, Comment as CommentPrisma} from "@prisma/client";

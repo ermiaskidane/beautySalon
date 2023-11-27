@@ -97,3 +97,18 @@ model Testimonial {
 
   createdAt DateTime @default(now())
 }
+
+model Appointment {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  email   String
+  service String
+  phone   String
+
+  appointmentDate String
+  appointmentTime String
+
+  notes String
+
+  createdAt DateTime @default(now())
+}
