@@ -1,10 +1,14 @@
 "use client";
 
+import { Appointment } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import toast from "react-hot-toast";
 
+interface AppointmentFormProps {
+  bookedAppointment: Appointment[]
+}
 interface FormData {
   name: string,
   email: string,
@@ -25,11 +29,13 @@ const initFormData: FormData = {
   notes: ' ',
 }
 
-const AppointmentForm: React.FC = (props: any) => {
-  const { onFormSubmit } = props
+const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
+  // const { onFormSubmit } = props
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initFormData)
   const router = useRouter();
+
+  console.log("££££££££££££££££££EEEEEEEEEEEEEDDDDDDDDDDDDD",bookedAppointment)
 
   const inputChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const newFormData: FormData = {...formData, [e.target.name]: e.target.value }
@@ -39,25 +45,63 @@ const AppointmentForm: React.FC = (props: any) => {
   }
 
   const getAvailableHours = (date: string) => {
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+  
+    // Check if the selected date is the current day
+    const isCurrentDay = (
+      currentDate.getFullYear() === selectedDate.getFullYear() &&
+      currentDate.getMonth() === selectedDate.getMonth() &&
+      currentDate.getDate() === selectedDate.getDate()
+    );
+  
     // Assuming that the time input has options in 30-minute intervals
     const allHours = Array.from({ length: 24 * 2 }, (_, index) => {
       const hour = Math.floor(index / 2);
       const minute = index % 2 === 0 ? "00" : "30";
       return `${hour.toString().padStart(2, '0')}:${minute}`;
     });
-
-    // console.log("@@@@@@@@@", date)
-    // console.log("sdfadfsdf", allHours)
   
-    // Filter out the hours from 00:00 to 10:00
+    // Filter out the hours from 00:00 to 10:00 and the past hours if the date is the current day
     const availableHours = allHours.filter((hour) => {
       const selectedTime = new Date(`${date}T${hour}:00`);
-      const isUnavailable = selectedTime.getHours() < 10 || selectedTime.getHours() >= 17;
+      const isUnavailable = (
+        selectedTime.getHours() < 10 ||
+        (isCurrentDay && selectedTime <= currentDate) || selectedTime.getHours() >= 17
+      );
       return !isUnavailable;
     });
   
-    return availableHours;
+    // return availableHours;
+
+    // // Filter out the hours that are already booked
+    // const bookedTimes = bookedAppointment
+    //   .filter((appointment) => appointment.appointmentDate === date)
+    //   .map((appointment) => appointment.appointmentTime);
+
+    // const availableHoursFiltered = availableHours.filter((hour) => !bookedTimes.includes(hour));
+
+    // return availableHoursFiltered;
+
+    // Check the total number of booked appointments for each specific hour on the given date
+    const bookedAppointmentsForDate = bookedAppointment.filter((appointment) => appointment.appointmentDate === date);
+    const bookedAppointmentsByHour = {};
+    
+    bookedAppointmentsForDate.forEach((appointment) => {
+      const { appointmentTime } = appointment;
+      bookedAppointmentsByHour[appointmentTime] = (bookedAppointmentsByHour[appointmentTime] || 0) + 1;
+    });
+
+    // Make the entire day and time unavailable if two or more appointments are booked for a specific hour
+    const availableHoursFiltered = availableHours.filter((hour) => {
+      const appointmentCountForHour = bookedAppointmentsByHour[hour] || 0;
+      return appointmentCountForHour < 3;
+    });
+
+    return availableHoursFiltered;
+
   };
+
 
   const getCurrentDate = () => {
     const currentDate = new Date();
@@ -67,14 +111,21 @@ const AppointmentForm: React.FC = (props: any) => {
     return `${year}-${month}-${day}`;
   };
 
+  const getMaxDate = () => {
+    const currentDate = new Date();
+    const maxDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, currentDate.getDate());
+    return `${maxDate.getFullYear()}-${(maxDate.getMonth() + 1).toString().padStart(2, '0')}-${maxDate.getDate().toString().padStart(2, '0')}`;
+  };
+  
+
   const handleFormSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log("£££££££££££££££", formData)
+    // console.log("£££££££££££££££", formData)
     // onFormSubmit(formData)
     try {
       setLoading(true);
       await axios.post("/api/appointment", formData)
-      toast.success('Comment Created.');
+      toast.success('appointment created.');
       router.refresh();
     }catch(error) {
       toast.error("Form submission failed.")
@@ -82,22 +133,7 @@ const AppointmentForm: React.FC = (props: any) => {
       setLoading(false);
       setFormData(initFormData)
     }
-    // axios
-    //   .post("/appointments.json", formData)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       toast.success("Appointment created successfully!");
-    //     } else {
-    //       throw new Error("Form submission failed.");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     toast.error(err.message);
-    //   });
-    // setFormData(initFormData)
   }
-
-  // console.log(formData)
 
   return (
     <form onSubmit={handleFormSubmit}>
@@ -146,6 +182,7 @@ const AppointmentForm: React.FC = (props: any) => {
           onChange={inputChangeHandler}
           placeholder='date'
           min={getCurrentDate()}
+          max={getMaxDate()} 
           required
 
         />
@@ -179,7 +216,7 @@ const AppointmentForm: React.FC = (props: any) => {
           onChange={inputChangeHandler}
         ></textarea>
       </div>
-      <button type='submit' className='btn btn-round'>
+      <button type='submit' className={`${loading? "opacity-30": ""} btn btn-round`}>
         Make an Appointment
       </button>
     </form>

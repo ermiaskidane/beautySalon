@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { ClerkProvider } from '@clerk/nextjs'
+import { ToasterProvider } from '@/providers/toast-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +23,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
+          <ToasterProvider/>
           <Navbar/>
             {children}
           <Footer/>
