@@ -35,7 +35,7 @@ const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
   const [formData, setFormData] = useState(initFormData)
   const router = useRouter();
 
-  console.log("££££££££££££££££££EEEEEEEEEEEEEDDDDDDDDDDDDD",bookedAppointment)
+  // console.log("££££££££££££££££££EEEEEEEEEEEEEDDDDDDDDDDDDD",bookedAppointment)
 
   const inputChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const newFormData: FormData = {...formData, [e.target.name]: e.target.value }
@@ -44,7 +44,10 @@ const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
     setFormData(newFormData)
   }
 
-  const getAvailableHours = (date: string) => {
+  const getAvailableHours = (
+    date: string,
+    bookedAppointment: Appointment[]
+  ): string[]=> {
     const currentDate = new Date();
     const selectedDate = new Date(date);
   
@@ -85,7 +88,7 @@ const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
 
     // Check the total number of booked appointments for each specific hour on the given date
     const bookedAppointmentsForDate = bookedAppointment.filter((appointment) => appointment.appointmentDate === date);
-    const bookedAppointmentsByHour = {};
+    const bookedAppointmentsByHour: { [hour: string]: number } = {};
     
     bookedAppointmentsForDate.forEach((appointment) => {
       const { appointmentTime } = appointment;
@@ -110,6 +113,10 @@ const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
     const day = currentDate.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
+
+//   const fullNumber = '2034399002125581';
+// const last4Digits = fullNumber.slice(-4);
+// const maskedNumber = last4Digits.padStart(fullNumber.length, '*');
 
   const getMaxDate = () => {
     const currentDate = new Date();
@@ -162,8 +169,10 @@ const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
             defaultValue='s1'
             onChange={inputChangeHandler}
           >
-            <option value='s1'>Select service</option>
-            <option value='s2'>Select service 1</option>
+            <option value=''>Select service</option>
+            <option value='s1'>Select service 1</option>
+            <option value='s2'>Select service 2</option>
+            <option value='s3'>Select service 3</option>
           </select>
         </div>
         <input
@@ -171,7 +180,8 @@ const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
           type='tel'
           value={formData.phone}
           onChange={inputChangeHandler}
-          placeholder='Phone numer'
+          placeholder="telephone"
+          required
         />
       </div>
       <div className='form-field half-width'>
@@ -201,7 +211,7 @@ const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
           required
         >
           <option value=''>Select time</option>
-          {getAvailableHours(formData.appointmentDate).map((hour) => (
+          {getAvailableHours(formData.appointmentDate, bookedAppointment).map((hour) => (
             <option key={hour} value={hour}>
               {hour}
             </option>

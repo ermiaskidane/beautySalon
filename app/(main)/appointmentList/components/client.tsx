@@ -8,18 +8,18 @@ import { DataTable } from "@/components/ui/data-table";
 import Heading  from "@/components/Heading";
 import { Separator } from "@/components/ui/separator";
  
-import { MembersColumn, columns } from "./columns";
+import { CustomerColumn, columns } from "./columns";
 import { Appointment, User as userRole} from "@prisma/client";
 import { useEffect } from "react";
 import useUserRoleStore from "@/hooks/useUser";
 // import AlertDemo from "@/components/UserInformation";
 
-interface MembersClientProps {
-  data: Appointment[]
+interface CustomerClientProps {
+  data: CustomerColumn[]
   userRole: userRole
 }
   
-export const MembersClient: React.FC<MembersClientProps> = ({
+export const CustomerClient: React.FC<CustomerClientProps> = ({
   data,
   userRole
 }) => {
@@ -32,29 +32,11 @@ export const MembersClient: React.FC<MembersClientProps> = ({
       setRoleUser(userRole.role);
   }, [userRole, setRoleUser]);
 
-  // const totalDonationsAmount = data.reduce((total, item) => {
-  //   const donationsAmount = item.donations.reduce((donationTotal, donation) => {
-  //       return donationTotal + donation.amount;
-  //   }, 0);
-
-  //   return total + donationsAmount;
-  // }, 0);
-
   return  (
     <>
-    <div className="flex items-center justify-between">
-    <Heading title={`Members ${data.length}`} subtitle={`Total Amount of Money `} />
-    {/* {userRole.role === "ADMIN" && (
-      <div className="flex flex-col gap-2 md:flex-row">
-        <Button onClick={() => router.push(`/users`)} >
-          <User className="mr-2 h-4 w-4" /> Manage User
-        </Button>
-        <Button onClick={() => router.push(`/members/6512c326f323f44d75c5414d`)} >
-          <Plus className="mr-2 h-4 w-4" /> Add New
-        </Button>
-      </div>
-    )} */}
-    </div>
+    {/* <div className="flex items-center justify-between"> */}
+    <Heading title={`Clients (${data.length})`} subtitle="" />
+    {/* </div> */}
     <Separator />
     <DataTable searchKey="name" columns={columns} data={data}/>
     </>

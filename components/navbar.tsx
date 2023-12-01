@@ -61,13 +61,13 @@ const Navbar = (props: any) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/feature" onClick={clearStateHandler}>
-                    feature
+                  <Link href="/services" onClick={clearStateHandler}>
+                    Service
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services" onClick={clearStateHandler}>
-                    service
+                  <Link href="/appointmentList" onClick={clearStateHandler}>
+                    Appointment
                   </Link>
                 </li>
                 <li>

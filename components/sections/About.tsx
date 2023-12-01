@@ -1,7 +1,11 @@
 import React from "react";
 import Link from "next/link";
 
-const AboutSec = () => {
+interface AboutSecProps {
+  btn: boolean
+}
+
+const AboutSec = ({btn} : AboutSecProps) => {
   return (
     // About section start
     <section className="about">
@@ -31,9 +35,11 @@ const AboutSec = () => {
                 silence in the ears, the sky gets darker and darker
               </p>
             </div>
-            <Link href="/about" className="btn btn-round">
-              Read more
-            </Link>
+            {btn && (
+              <Link href="/about" className="btn btn-round">
+                Read more
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { useState} from 'react'
 import { toast } from "react-hot-toast";
 
-import { MembersColumn } from './columns';
+import { CustomerColumn } from './columns';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { BarChart4, Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
@@ -14,7 +14,7 @@ import { AlertModal } from "@/components/Modal/alert-modal";
 import useUserStore from "@/hooks/useUser";
 
 interface CellActionProps {
-  data: MembersColumn;
+  data: CustomerColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({

@@ -92,9 +92,11 @@ const Appointment = async() => {
     }
   ]
 
+  
   const appointmentCountMap = arr.reduce((appointmentCounts, { appointmentDate, appointmentTime }) => {
     const key = `${appointmentDate}-${appointmentTime}`;
     appointmentCounts.set(key, (appointmentCounts.get(key) || 0) + 1);
+    console.log("FFFFFFFFFFFFFFFFFFF", appointmentCounts);
     return appointmentCounts;
   }, new Map());
   
@@ -105,7 +107,7 @@ const Appointment = async() => {
   
   console.log('Count of occurrences for each date and time combination:');
   console.log(Object.fromEntries(appointmentCountMap));
-  // console.log(appointmentCountMap);
+  console.log(appointmentCountMap);
 
 // #######################################################################
 //   // Create a map to store the count of each appointment date and time combination

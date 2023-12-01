@@ -19,7 +19,7 @@ const About = async() => {
   })
   return (
     <>
-      <AboutSec />
+      <AboutSec btn={false}/>
       <Team />
       <Testimonial testimonials={GetTestimonials}/>
     </>

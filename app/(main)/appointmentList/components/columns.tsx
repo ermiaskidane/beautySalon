@@ -8,21 +8,24 @@ import { currentProfile } from "@/lib/current-profile";
 import { User } from "@prisma/client";
 
 
-export type MembersColumn = {
+export type CustomerColumn = {
   id: string;
   name: string;
   phone: string;
   email: string;
-  amount: number;
-  updatedAt: string;
-  donations: {
-    id: string;
-    dtime: string;
-    amount: number;
-    memberId: string;
-    createdAt: Date;
-    updatedAt: Date;
-  }[]
+  service: string;
+  appointmentDate: string;
+  appointmentTime: string;
+  notes: string;
+  // createdAt: string;
+  // donations: {
+  //   id: string;
+  //   dtime: string;
+  //   amount: number;
+  //   memberId: string;
+  //   createdAt: Date;
+  //   updatedAt: Date;
+  // }[]
 }
 
 // we alter the createdAt to updateAt cz on creation of the donation 
@@ -30,7 +33,7 @@ export type MembersColumn = {
 // so to see the latest time I had to go with updateAt
 
 
-export const columns: ColumnDef<MembersColumn>[] = [
+export const columns: ColumnDef<CustomerColumn>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {

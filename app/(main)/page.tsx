@@ -33,13 +33,13 @@ const Home = async () => {
   return (
     <>
       <Banner/>
-      <AboutSec />
+      <AboutSec btn={true}/>
       <Service />
       <Procedure  blogs={GetBlog}/>
       <Testimonial testimonials={GetTestimonials} />
       <Team />
       <Appointment />
-      <Blog />
+      {/* <Blog /> */}
       <Contact />
     </>
   )
