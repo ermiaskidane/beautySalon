@@ -1,8 +1,9 @@
 "use client"
 
 import React, { useState, ChangeEvent, FormEvent } from "react";
-// import axios from "../axios-orders";
+import axios from "axios";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 
 interface ContactInfo {
@@ -19,6 +20,9 @@ const initContactInfo: ContactInfo = {
 
 const Contact: React.FC = () => {
   const [contactInfo, setContactInfo] = useState<ContactInfo>(initContactInfo);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   const inputChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const updatedContactInfo: ContactInfo = { ...contactInfo, [e.target.name]: e.target.value };
@@ -27,18 +31,20 @@ const Contact: React.FC = () => {
     setContactInfo(updatedContactInfo);
   };
 
-  const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // axios
-    //   .post("/contactInfo.json", contactInfo)
-    //   .then((res) => {
-    //     toast.success("Thanks for cantact us. We will reach out to you soon.");
-    //     setContactInfo(initContactInfo);
-    //   })
-    //   .catch((err) => {
-    //     toast.error("Something went wrong!");
-    //     console.log(err.message);
-    //   });
+    // console.log("££££££££££££3", contactInfo)
+    try {
+      setLoading(true);
+      await axios.post("/api/contact", contactInfo)
+      toast.success('Message sent.');
+      router.refresh();
+    } catch(error) {
+      toast.error("Form submission failed.")
+    } finally {
+      setLoading(false);
+      setContactInfo(initContactInfo)
+    }
   };
 
   return (

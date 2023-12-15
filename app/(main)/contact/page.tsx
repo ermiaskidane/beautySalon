@@ -9,4 +9,4 @@ const contact = (props: any) => {
     )
 }
 
-export default contact
+export default contact 

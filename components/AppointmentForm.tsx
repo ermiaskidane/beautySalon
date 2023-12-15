@@ -30,7 +30,6 @@ const initFormData: FormData = {
 }
 
 const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
-  // const { onFormSubmit } = props
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initFormData)
   const router = useRouter();
