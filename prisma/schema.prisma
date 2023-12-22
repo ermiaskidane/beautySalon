@@ -28,6 +28,7 @@ model User {
   comments     Comment[]
   nestComments NestComment[]
   testimonials Testimonial[]
+  orders       Order[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -111,4 +112,47 @@ model Appointment {
   notes String
 
   createdAt DateTime @default(now())
+}
+
+model Product {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  price       Float
+  description String
+  image       String
+  stripeId    String
+  priceId     String
+
+  createdAt DateTime    @default(now())
+  OrderItem OrderItem[]
+}
+
+model Order {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  isPaid  Boolean
+  phone   String  @default("")
+  address String  @default("")
+
+  userId     String      @db.ObjectId
+  user       User        @relation(fields: [userId], references: [id])
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+}
+
+// Warning validating field `user` in model `Order`: Field Order.userId
+// and User.id must have the same native type for MongoDB to join those 
+// collections correctly. Consider either removing User.id's native type 
+// attribute or adding '@db.ObjectId' to Order.userId. Beware that this will 
+// become an error in the future.
+
+// Intermediary for a many-to-many relationship
+model OrderItem {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  orderId String @db.ObjectId // Foreign Key to Order
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  productId String  @db.ObjectId // Foreign Key to Product
+  product   Product @relation(fields: [productId], references: [id])
 }

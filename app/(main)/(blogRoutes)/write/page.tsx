@@ -19,7 +19,7 @@ const WritePage = async() =>{
   // }
 
   const categories = await db.category.findMany()
-  console.log("categories", categories)
+  // console.log("categories", categories)
   return (
     <div className='m-4'>
       <WriteBlog categories={categories}/>

@@ -6,7 +6,6 @@ interface ModalProps {
   title: string;
   description: string;
   isOpen: boolean;
-  info?: boolean;
   onClose: () => void;
   children?: React.ReactNode;
 }
@@ -15,7 +14,6 @@ export const Modal: React.FC<ModalProps> =({
   title,
   description,
   isOpen,
-  info,
   onClose,
   children
 }) => {
@@ -27,7 +25,7 @@ export const Modal: React.FC<ModalProps> =({
 
   return  (
     <Dialog open={isOpen} onOpenChange={onChange} >
-      <DialogContent className={`${info ? "bg-[#00ffff]" : "bg-white"} `}>
+      <DialogContent >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>

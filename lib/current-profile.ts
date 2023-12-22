@@ -5,6 +5,8 @@ import { db } from "@/lib/db";
 export const currentProfile = async () => {
   const { userId } = auth();
 
+  // console.log("sZZZZZZZZZZZZZZ", userId)
+
   if (!userId) {
     return null;
   }
@@ -14,6 +16,8 @@ export const currentProfile = async () => {
       userId
     }
   });
+
+  // console.log("DDDDDDDDDDDDDDDDDDDDDDDDDD", useProfile)
 
   return useProfile;
 }

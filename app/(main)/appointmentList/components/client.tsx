@@ -27,6 +27,8 @@ export const CustomerClient: React.FC<CustomerClientProps> = ({
 
   const { roleUser, setRoleUser} = useUserRoleStore()
 
+  // console.log("dssssssssss", roleUser)
+
   // change the defualt Zustand Guest to the actual current userrole
   useEffect(() => {
       setRoleUser(userRole.role);
