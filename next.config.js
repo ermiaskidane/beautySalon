@@ -11,7 +11,6 @@ const nextConfig = {
     )
     return config
   },
-  target: 'server',
   images: {
     // / https://utfs.io/f/4dd45b40-9055-4cd6-a896-7bbbcfdeae5f-2dr.jpg
     remotePatterns: [
