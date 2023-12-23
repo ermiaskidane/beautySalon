@@ -17,8 +17,8 @@ const Banner = () => {
               <span>spa & beauty center</span>
               <h2>Beauty and success starts here.</h2>
               <p>
-                Together creeping heaven upon third dominion be upon won't
-                darkness rule behold it created good saw after she'd Our set
+                Together creeping heaven upon third dominion be upon won&apos;t
+                darkness rule behold it created good saw after she&apos;d Our set
                 living.
               </p>
               <a href="#appointment_sec" className="btn">

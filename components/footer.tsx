@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -8,8 +9,14 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-12 text-center">
-            <Link href="index.html" className="logo foo-logo">
-              <img src="/images/logo.png" alt="" />
+            <Link href="/" className="logo foo-logo">
+              <Image 
+              src="/images/logo.png"
+              alt="" 
+              width={109}
+              height={77}
+              className=""
+            />
             </Link>
             <nav className="foo-nav">
               <ul>

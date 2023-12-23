@@ -59,8 +59,8 @@ const Team = () => {
             <div className="sec-heading">
               <h3 className="sec-title">Experienced Team</h3>
               <p>
-                To doesn't his appear replenish together called he of mad place
-                won't wherein blessed second every wherein were meat kind
+                To doesn&apos;t his appear replenish together called he of mad place
+                won&apos;t wherein blessed second every wherein were meat kind
                 wherein and martcin
               </p>
             </div>

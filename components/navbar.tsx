@@ -13,6 +13,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import useCart from "@/hooks/use-cart";
+import Image from "next/image";
 
 const Navbar = (props: any) => {
   const pathName = usePathname();
@@ -55,8 +56,14 @@ const Navbar = (props: any) => {
           {/* align-items-end */}
           <div className="col-md-3">
             <Link href="/" className="logo">
-            <img src="/images/logo.png" alt="" />
-              {/* <img src={require("../assets/images/logo.png")} alt="" /> */}
+            {/* <img src="/images/logo.png" alt="" /> */}
+            <Image
+              src="/images/logo.png"
+              alt="" 
+              width={109}
+              height={77}
+              className=""
+            />
             </Link>
           </div>
           <div className={"col-md-9" + right}>

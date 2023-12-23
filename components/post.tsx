@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import DOMPurify from 'dompurify';
+import Image from "next/image";
 
 const post = (props: any) => {
 
@@ -14,6 +15,14 @@ const post = (props: any) => {
   return (
     <div className="col-md-4">
       <article className="post">
+      {/* <Image 
+        src="/images/post/0.jpg"
+        alt=""
+        // fill
+        // width={109}
+        // height={77}
+        className="aspect-square object-cover rounded-md"
+      /> */}
       <img
           src="/images/post/0.jpg"
           alt=""

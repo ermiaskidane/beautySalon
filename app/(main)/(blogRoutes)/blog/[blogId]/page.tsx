@@ -18,10 +18,7 @@ const Page = async({params} : pageProps) => {
       comments: true
     }
   })
-  // console.log("getblog", Ablog)
-
-  // console.log(":::::::::::::", params.blogId)
-    
+  
     return (
         <>
         <section className="page-feature">
