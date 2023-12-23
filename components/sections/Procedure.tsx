@@ -29,7 +29,7 @@ const Procedure = ({blogs} : procedureProps) => {
 
   // URL should be signle service page -> '/services/'+procedure.id
 
-  let renderProcedures = <Loader />;
+  let renderProcedures: React.ReactNode = <Loader />;
   if (procedures !== null) {
     renderProcedures = procedures.slice(0, 3).map((procedure) => {
       return (
