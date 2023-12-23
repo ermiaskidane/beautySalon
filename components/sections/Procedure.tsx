@@ -14,7 +14,7 @@ interface procedureProps {
 // }
 
 const Procedure = ({blogs} : procedureProps) => {
-  const [procedures, setProcedures] = useState(blogs);
+  const [procedures, setProcedures] = useState<Blog[] | null>(blogs);
 
   useEffect(() => {
     // axios

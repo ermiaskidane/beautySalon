@@ -27,7 +27,7 @@ const SinglePost =  ({Ablog} : SinglePostProps) => {
   console.log("post~~~~~~~~~~~~~~~~~~~", blog)
 
   const sanitizedData = (): { __html: string } => {
-    if (!blog.desc) {
+    if (!blog || !blog.desc) {
       return { __html: '' }; // Handle empty input
     }
     return {__html: DOMPurify.sanitize(blog.desc)}
