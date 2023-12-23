@@ -18,16 +18,6 @@ const Summary = () => {
 
   const fee = 1
 
-  // useEffect(() => {
-  //   if (searchParams.get('success')) {
-  //     toast.success('Payment completed.');
-  //     removeAll();
-  //   }
-
-  //   if (searchParams.get('canceled')) {
-  //     toast.error('Something went wrong.');
-  //   }
-  // }, [searchParams, removeAll]);
 
   const totalPrice = items.reduce((total, item) => {
     return total + Number(item.price)
@@ -38,7 +28,6 @@ const Summary = () => {
       productIds: items.map((item) => item.id)
     });
 
-    // console.log("::::::::::::::::::", response.data.url)
 
     window.location = response.data.url;
 
