@@ -10,12 +10,14 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Button } from '../ui/button';
 import ImageUpload from '../image-upload';
 import { FileUpload } from '../file-upload';
+import { Product } from '@prisma/client';
 
 interface ProductModalProps {
   isOpen: boolean;
   onClose: () => void;
   loading: boolean;
   onSubmit?: (data: ProductModalValues) => void;
+  initialData?: Product
 }
 
 const formSchema = z.object({
@@ -31,14 +33,18 @@ const ProductModal: React.FC<ProductModalProps> = ({
   isOpen,
   onClose,
   loading,
-  onSubmit
+  onSubmit,
+  initialData
 }) => {
 
   const [isMounted, setIsMounted] = useState(false);
 
+  const title = initialData ? 'Edit product' : 'Add products for sell';
+  const action = initialData ? 'Save changes' : 'Create';
+
   const form = useForm<ProductModalValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    defaultValues: initialData || {
       imageUrl: '',
       name: "",
       description: "",
@@ -46,9 +52,6 @@ const ProductModal: React.FC<ProductModalProps> = ({
     }
   })
 
-  // const onSubmit = async (data: ProductModalValues) => {
-  //   console.log("DDDDDDDd", data)
-  // };
 
   useEffect(() => {
     setIsMounted(true);
@@ -60,11 +63,12 @@ const ProductModal: React.FC<ProductModalProps> = ({
 
   return (
     <Modal 
-      title="Add products for sell"
+      title={title}
       description=""
       isOpen={isOpen}
       onClose={onClose}>
         <Form {...form}>
+          {/* @ts-ignore */}
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
           <div className="gap-6 flex flex-col md:w-11/12 mx-auto">
           <FormField
@@ -79,12 +83,6 @@ const ProductModal: React.FC<ProductModalProps> = ({
                           value={field.value}
                           onChange={field.onChange}
                         />
-                    {/* <ImageUpload 
-                      value={field.value ? [field.value] : []} 
-                      disabled={loading} 
-                      onChange={(url) => field.onChange(url)}
-                      onRemove={() => field.onChange('')}
-                    /> */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -130,7 +128,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
               )}
             />
             <Button disabled={loading} className="w-1/2 mt-8 self-center" type="submit">
-              create
+              {action}
             </Button>
           </div>
         </form>
