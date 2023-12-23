@@ -8,7 +8,7 @@ import { Modal } from '../ui/modal';
 import { Input } from '../ui/input';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from '../ui/button';
-import ImageUpload from '../image-upload';
+// import ImageUpload from '../image-upload';
 import { FileUpload } from '../file-upload';
 import { Product } from '@prisma/client';
 
