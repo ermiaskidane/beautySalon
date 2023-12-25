@@ -23,10 +23,10 @@ const initFormData: FormData = {
   name: '',
   email: '',
   service: '',
-  phone: ' ',
+  phone: '',
   appointmentDate: '',
   appointmentTime: '',
-  notes: ' ',
+  notes: '',
 }
 
 const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
@@ -179,7 +179,7 @@ const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
           type='tel'
           value={formData.phone}
           onChange={inputChangeHandler}
-          placeholder="telephone"
+          placeholder="Phone number"
           required
         />
       </div>
