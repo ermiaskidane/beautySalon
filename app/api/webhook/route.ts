@@ -5,14 +5,26 @@ import { NextResponse } from "next/server"
 import { stripe } from "@/lib/stripe"
 import { db } from "@/lib/db"
 import { Resend } from "resend"
+import { ReceiptEmailHtml } from "@/components/emails/ReceiptEmail"
+import { Product } from "@prisma/client"
+import { formatISO } from 'date-fns';
 
 const resend = new Resend(process.env.RESEND_API_KEY)
+
+// defined custome type of OrderItems
+interface OrderItem {
+  id: string;
+  orderId: string;
+  productId: string;
+  product: Product;
+}
+
 
 export async function POST(req: Request, res: Response) {
   const body = await req.text()
   const signature = headers().get("Stripe-Signature") as string
 
-  console.log("FFFFFFFFFFFf", body)
+  // console.log("FFFFFFFFFFFf", body)
 
   let event: Stripe.Event
 
@@ -29,7 +41,7 @@ export async function POST(req: Request, res: Response) {
   const session = event.data.object as Stripe.Checkout.Session;
   const address = session?.customer_details?.address;
 
-  console.log("AAAAAAAAAAAAAAAA", session)
+  // console.log("AAAAAAAAAAAAAAAA", session)
 
   const addressComponents = [
     address?.line1,
@@ -50,6 +62,7 @@ export async function POST(req: Request, res: Response) {
     }
   })
 
+  console.log("$$$$$$$$$$$$$$$", user)
   if (!user) {
     return new NextResponse("No such user exists.", { status: 404 });
   }
@@ -67,25 +80,40 @@ export async function POST(req: Request, res: Response) {
         phone: session?.customer_details?.phone || '',
       },
       include: {
-        orderItems: true,
+        orderItems: {
+          include: {
+            product: true
+          }
+        },
       }
     })
+
+    // send receipt email
+    const formattedDate = formatISO(new Date());
+    try {
+      const data = await resend.emails.send({
+        from: 'LeospaBeauty <onboarding@resend.dev>',
+        to: [user.email],
+        subject:
+            'Thanks for your order! This is your receipt.',
+        // html: `<p>Sent from: <onboarding@resend.dev></p>`,
+        html: ReceiptEmailHtml({
+          date: formattedDate,
+          email: user.email,
+          orderId: session?.metadata?.orderId,
+          products: order.orderItems as OrderItem[],
+        }),
+      })
+      
+        NextResponse.json(data);
+    } catch(error) {
+      console.log('[WEBHOOK_POST]', error)
+      return new NextResponse("Internal Error", {status: 500})
+    }
   }
-  // send receipt email
-  try {
-    const data = await resend.emails.send({
-      from: 'LeospaBeauty <onboarding@resend.dev>',
-      to: [user.email],
-      subject:
-          'Thanks for your order! This is your receipt.',
-      html: `<p>Sent from: <onboarding@resend.dev></p>`,
-    })
-    
-     NextResponse.json(data);
-  } catch(error) {
-    console.log('[WEBHOOK_POST]', error)
-    return new NextResponse("Internal Error", {status: 500})
-  }
+
+  
+  
 
   return new NextResponse(null, { status: 200 });
 }

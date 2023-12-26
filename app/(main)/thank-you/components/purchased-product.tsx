@@ -38,14 +38,14 @@ const PurchasedProduct: React.FC<PurchasedProductProps> = ({
             </p> */}
           </div>
 
-          {order.isPaid ? (
+          {/* {order.isPaid ? (
             <a
               // href={downloadUrl}
               download={product.name}
               className='text-blue-600 hover:underline underline-offset-2'>
               Download asset
             </a>
-          ) : null}
+          ) : null} */}
         </div>
 
         <p className='flex-none font-medium text-gray-900'>
