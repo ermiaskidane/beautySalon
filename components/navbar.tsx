@@ -96,10 +96,10 @@ const Navbar = (props: any) => {
                 <li>
                     <HoverCard>
                       <HoverCardTrigger asChild>
-                        <p  className="py-2 px-3 m-0 text-sm cursor-pointer md:py-0 hover:text-[#ff817e]">BLOG</p>
+                        <Button variant="link" className="py-2 px-3 m-0 text-sm cursor-pointer md:py-0 hover:text-[#ff817e]">BLOG</Button>
                       </HoverCardTrigger>
                       <HoverCardContent className="w-80">
-                        <div className="flex justify-between space-x-4">
+                        <div className="flex justify-between space-x-4 z-50">
                           <div className="">
                             <Link href="/blog"  onClick={clearStateHandler} className="text-sm ">Blog post</Link>
                             <Link href="/write"  onClick={clearStateHandler} className="text-sm">Write blog</Link>

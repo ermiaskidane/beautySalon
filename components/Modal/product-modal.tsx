@@ -70,7 +70,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
         <Form {...form}>
           {/* @ts-ignore */}
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-          <div className="gap-6 flex flex-col md:w-11/12 mx-auto">
+          <div className="gap-2 flex flex-col md:gap-6 md:w-11/12 mx-auto">
           <FormField
               control={form.control}
               name="imageUrl"

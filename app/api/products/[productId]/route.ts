@@ -58,7 +58,7 @@ export const PATCH = async (req: Request, {params}: {params: {productId: string}
   console.log("***************", user)
 
   if(user?.role !== "ADMIN") {
-    return new NextResponse("userEmail can not be null", { status: 400 });
+    return new NextResponse("userRole must is not Admin", { status: 400 });
   }
 
   const product = await db.product.update({

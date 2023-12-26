@@ -84,9 +84,11 @@ const ProductCard: React.FC<ProductCard> = ({
     <div onClick={handleClick} className="bg-white parentto cursor-pointer rounded-xl border p-3 space-y-4 relative" >
       {/* Image & actions */}
       <div className="aspect-square rounded-xl bg-gray-100 relative">
-        <div className="absolute top-1 right-2 z-50 opacity-0 childto bg-white p-2 rounded-full" onClick={() => OpenModal(currentUser!)}>
-          <Edit className=" text-[#ff817e] rounded hover:scale-110" />
-        </div>
+        {currentUser?.role === "ADMIN" && (
+          <div className="absolute top-1 right-2 z-50 opacity-0 childto bg-white p-2 rounded-full" onClick={() => OpenModal(currentUser!)}>
+            <Edit className=" text-[#ff817e] rounded hover:scale-110" />
+          </div>
+        )}
         <Image 
           // src={data.images?.[0]?.url} 
           src={items.image}

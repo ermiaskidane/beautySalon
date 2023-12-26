@@ -26,6 +26,7 @@ export async function POST(req: Request, res: Response) {
 
   // console.log("FFFFFFFFFFFf", body)
 
+  // Webhook Error: The "key" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, DataView, KeyObject, or CryptoKey. Received undefined
   let event: Stripe.Event
 
   try {

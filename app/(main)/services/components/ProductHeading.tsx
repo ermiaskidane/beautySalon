@@ -79,10 +79,13 @@ const ProductHeading: React.FC<ProductHeadingProps> = ({
       />
       <div className="flex justify-between items-center ">
         <h3 className="text-3xl font-bold text-gray-900">Feature Product</h3>
-        <p className="font-bold !mb-0 text-[#FF817E] cursor-pointer"
-           onClick={() => OpenModal(currentUser!)}
+
+        {currentUser?.role === "ADMIN" && (
+          <p className="font-bold !mb-0 text-[#FF817E] cursor-pointer"
+          onClick={() => OpenModal(currentUser!)}
           // onClick={onProduct} 
-        ><Plus className='inline w-5 h-5 -translate-y-0.5'/> Add Products</p>
+          ><Plus className='inline w-5 h-5 -translate-y-0.5'/> Add Products</p>
+        )}
       </div>
     </>
   )

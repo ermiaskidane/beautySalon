@@ -54,7 +54,7 @@ export const POST = async (req: Request) => {
   console.log("***************", user)
 
   if(user?.role !== "ADMIN") {
-    return new NextResponse("userEmail can not be null", { status: 400 });
+    return new NextResponse("userRole is not Admin", { status: 400 });
   }
 
   const productOnStripe = await stripe.products.create({
