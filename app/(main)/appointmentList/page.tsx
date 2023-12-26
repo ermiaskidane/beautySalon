@@ -43,7 +43,7 @@ const upcomingAppointments = bookedAppointment.filter((appointment) => !isAppoin
     return (
       <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <h2 className='text-center'>List of client appointment</h2>
+        <h2 className='text-center text-2xl md:text-3xl'>List of client appointment</h2>
         <CustomerClient data={upcomingAppointments} userRole={currentuser}/>
       </div>
     </div>

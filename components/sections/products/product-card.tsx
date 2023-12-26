@@ -111,7 +111,7 @@ const ProductCard: React.FC<ProductCard> = ({
       </div>
       {/* Description */}
       <div>
-        <p className="font-medium text-lg m-0">{items.name}</p>
+        <p className="font-medium text-lg m-0 text-gray-900">{items.name}</p>
         <p className="text-sm text-gray-500">hair beauty oil</p>
         {/* <p className="text-sm text-gray-500">{data.category?.name}</p> */}
       </div>

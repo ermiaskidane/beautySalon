@@ -74,7 +74,7 @@ export function DataTable<TData, TValue>({
         />
         )}
       </div>
-      <div className={cn("rounded-md", hideContent? "": "border")}>
+      <div className={cn("rounded-md text-gray-900", hideContent? "": "border")}>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -100,7 +100,7 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="md:not-sr-only"
+                  className="md:not-sr-only text-gray-900"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -120,7 +120,7 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       {hideContent? (null) : 
-        <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="flex items-center justify-end space-x-2 py-4 text-gray-900">
           <Button
             variant="outline"
             size="sm"

@@ -78,7 +78,7 @@ const ProductHeading: React.FC<ProductHeadingProps> = ({
         loading={loading}
       />
       <div className="flex justify-between items-center ">
-        <h3 className="text-3xl font-bold text-gray-900">Feature Product</h3>
+        <h3 className="text-xl font-bold text-gray-900 md:text-2xl">Feature Product</h3>
 
         {currentUser?.role === "ADMIN" && (
           <p className="font-bold !mb-0 text-[#FF817E] cursor-pointer"

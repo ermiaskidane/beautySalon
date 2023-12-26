@@ -15,7 +15,7 @@ const Services = async () => {
 
     return (
         <>
-        <h3 className="text-center mt-3">Our Service</h3>
+        <h3 className="text-center mt-3 text-gray-900 text-2xl md:text-3xl">Our Service</h3>
           <Service />
           <div className="flex flex-col gap-y-8 px-4 pb-4 sm:px-6 lg:px-8">
             <div className=" space-y-4">
