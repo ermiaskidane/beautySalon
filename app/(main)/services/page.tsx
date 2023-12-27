@@ -6,12 +6,19 @@ import ProductCard from '@/components/sections/products/product-card';
 import { db } from '@/lib/db';
 import { currentProfile } from '@/lib/current-profile';
 import ProductHeading from './components/ProductHeading';
+import { initialProfile } from '@/lib/initail-profile';
 
 
 const Services = async () => {
   const products = await db.product.findMany()
 
   const currentuser = await currentProfile()
+
+  // if current user doesnot exist create with initialProfile
+  if(!currentuser) {
+    const newUser =  await initialProfile()
+    // console.log("ASFSDFSGFSBdf", newUser) 
+  }
 
     return (
         <>
