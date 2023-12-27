@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import {Button} from "@/components/ui/button";
 // import Currency from "@/components/ui/currency";
@@ -11,9 +11,10 @@ import { toast } from "react-hot-toast";
 import Currency, { formatter } from "@/components/sections/products/currency";
 
 const Summary = () => {
+  const router = useRouter()
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
-  // console.log(items)
+  console.log(items)
   const removeAll = useCart((state) => state.removeAll);
 
   const fee = 1
@@ -28,8 +29,8 @@ const Summary = () => {
       productIds: items.map((item) => item.id)
     });
 
-
-    window.location = response.data.url;
+    // window.location = response.data.url;
+    router.push(response.data.url)
 
     removeAll();
   }
