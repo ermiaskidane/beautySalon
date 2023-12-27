@@ -13,7 +13,7 @@ import Currency, { formatter } from "@/components/sections/products/currency";
 const Summary = () => {
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
-  console.log(items)
+  // console.log(items)
   const removeAll = useCart((state) => state.removeAll);
 
   const fee = 1

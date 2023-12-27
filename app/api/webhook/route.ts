@@ -1,5 +1,5 @@
 import Stripe from "stripe"
-import { headers} from "next/headers"
+import { headers } from "next/headers"
 import { NextResponse } from "next/server"
 
 import { stripe } from "@/lib/stripe"
@@ -20,7 +20,7 @@ interface OrderItem {
 }
 
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const body = await req.text()
   const signature = headers().get("Stripe-Signature") as string
 
@@ -57,7 +57,7 @@ export async function POST(req: Request, res: Response) {
 
   console.log("eeeeeeeeeeeeee", event.type)
 
-  const user = await db.user.findUnique({
+  const user = await db.user.findFirst({
     where: {
       id: session?.metadata?.userId
     }
@@ -89,6 +89,7 @@ export async function POST(req: Request, res: Response) {
       }
     })
 
+    console.log("%%%%%%%%%%%%%%%", order)
     // send receipt email
     const formattedDate = formatISO(new Date());
     try {

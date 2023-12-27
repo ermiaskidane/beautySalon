@@ -40,12 +40,12 @@ const ThankYouPage = async ({
     }
   })
 
-  console.log("order", order)
+  // console.log("order", order)
   if (!order) return notFound()
 
   const currentuser = await currentProfile()
 
-  console.log("currentuser", currentuser)
+  // console.log("currentuser", currentuser)
   // http://localhost:3001/thank-you?orderId=6580976ba358785352886e7f
   // http://localhost:3000/thank-you?orderId=6580976ba358785352886e7f
   // http://localhost:3000/thank-you?orderId=6581cc0fb2cf1faf314e66e0
@@ -55,17 +55,17 @@ const ThankYouPage = async ({
     )
   } 
 
-  console.log("EEEEEEEEEEE", orderId)
+  // console.log("EEEEEEEEEEE", orderId)
   
   const products = order.orderItems.map((item) => item.product) as Product[]
 
-  console.log("SSSSSSSSSSSSSSSS", products)
+  // console.log("SSSSSSSSSSSSSSSS", products)
 
   const orderTotal = products.reduce((total, product) => {
     return total + product.price
   }, 0)
 
-  console.log("AAAAAAAAAAAAAAAAA", orderTotal, typeof orderTotal)
+  // console.log("AAAAAAAAAAAAAAAAA", orderTotal, typeof orderTotal)
 
   return (
     <main className='relative lg:min-h-full'>
