@@ -13,12 +13,13 @@ const Services = async () => {
   const products = await db.product.findMany()
 
   const currentuser = await currentProfile()
+  // console.log("AAAAAAAAAAAAA", currentuser) 
 
-  // if current user doesnot exist create with initialProfile
-  if(!currentuser) {
-    const newUser =  await initialProfile()
-    // console.log("ASFSDFSGFSBdf", newUser) 
-  }
+  // // if current user doesnot exist create with initialProfile
+  // if(!currentuser) {
+  //   const newUser =  await initialProfile()
+  //   // console.log("ASFSDFSGFSBdf", newUser) 
+  // }
 
     return (
         <>
