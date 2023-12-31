@@ -83,7 +83,10 @@ export async function POST(
 
   // the $1 fee charged in every transaction
   line_items.push({
-    price: "price_1OOkKSHYPeXn9RHVUMTzc8nS",
+    // live mode
+    price: "price_1OTV4aHYPeXn9RHVtY2dX8b6",
+    // test mode
+    // price: "price_1OOkKSHYPeXn9RHVUMTzc8nS",
     quantity: 1,
     adjustable_quantity: {
       enabled: false,
@@ -114,18 +117,18 @@ export async function POST(
   const session = await stripe.checkout.sessions.create({
     success_url: `${process.env.REACT_APP_CURRENT_URL}/thank-you?orderId=${order.id}`,
     cancel_url: `${process.env.REACT_APP_CURRENT_URL}/cart`,
-    payment_method_types: ["card", "paypal"],
+    payment_method_types: ["card"],
     mode: "payment",
     billing_address_collection: 'required',
     shipping_address_collection: {
       allowed_countries: ['GB']
     },
-    custom_fields: [{
-      key: "company",
-      label: {type: "custom", custom: "Company Name"},
-      type: "text",
-      // optional: true
-    }],
+    // custom_fields: [{
+    //   key: "company",
+    //   label: {type: "custom", custom: "Company Name"},
+    //   type: "text",
+    //   // optional: true
+    // }],
     phone_number_collection: {
       enabled: true,
     },
