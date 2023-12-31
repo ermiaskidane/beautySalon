@@ -11,15 +11,36 @@ export async function POST(
 ){
   const { userId } = auth()
 
-  const {productIds} = await req.json();
+  const {productIds, addresses} = await req.json();
+
+  // console.log("gdgdgddhdh", productIds, addresses )
+
+  // console.log("Emailllllllllllllll", productIds, addresses.email )
 
   if(!productIds || productIds.length === 0){
-    return new NextResponse("PRoduct ids are required", { status: 400})
+    return new NextResponse("Product ids are required", { status: 400})
   }
+
+  // if (!addresses) {
+  //   return new NextResponse("addresses ids are required", { status: 403 });
+  // }
 
   if (!userId) {
     return new NextResponse("Unauthenticated", { status: 403 });
   }
+
+  // const addressComponents = [
+  //   addresses?.streetAddress1,
+  //   addresses?.streetAddress2,
+  //   addresses?.city,
+  //   addresses?.county,
+  //   addresses?.postcode,
+  //   addresses?.country
+  // ];
+
+  // const addressString = addressComponents.filter((c) => c !== null).join(', ');
+
+  // console.log("sssssssssssssssss", addressString)
 
   const user = await db.user.findFirst({
     where: {
@@ -60,6 +81,7 @@ export async function POST(
     })
   })
 
+  // the $1 fee charged in every transaction
   line_items.push({
     price: "price_1OOkKSHYPeXn9RHVUMTzc8nS",
     quantity: 1,
@@ -72,6 +94,10 @@ export async function POST(
     data: {
       isPaid: false,
       userId: user?.id,
+      // phone: addresses.phone.toString(),
+      // email: addresses.email,
+      // ShippingAddress: addressString,
+      // address: ,
       orderItems: {
         create : productIds.map((productId: string) => ({
           product: {
@@ -91,6 +117,15 @@ export async function POST(
     payment_method_types: ["card", "paypal"],
     mode: "payment",
     billing_address_collection: 'required',
+    shipping_address_collection: {
+      allowed_countries: ['GB']
+    },
+    custom_fields: [{
+      key: "company",
+      label: {type: "custom", custom: "Company Name"},
+      type: "text",
+      // optional: true
+    }],
     phone_number_collection: {
       enabled: true,
     },
@@ -104,6 +139,8 @@ export async function POST(
   return NextResponse.json({url: session.url})
   // console.log("AAAAAAAAAA", productIds)
 }
+//  custom_fields: is usefull when it comes to subscription payment which can inform
+// what company or client is making the payment
 
 
 export const GET = async (req: Request) => {

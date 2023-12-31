@@ -40,10 +40,14 @@ export async function POST(req: Request) {
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
+
   const address = session?.customer_details?.address;
+  const email = session?.customer_details?.email;
+  const shippingAddress = session?.shipping_details?.address
 
-  // console.log("AAAAAAAAAAAAAAAA", session)
-
+  console.log("AAAAAAAAAAAAAAAA", session)
+  console.log("AAAAAAAAAAAAAAAA", session?.shipping_details?.address)
+  
   const addressComponents = [
     address?.line1,
     address?.line2,
@@ -53,9 +57,20 @@ export async function POST(req: Request) {
     address?.country
   ];
 
-  const addressString = addressComponents.filter((c) => c !== null).join(', ');
+  const shippingComponents = [
+    shippingAddress?.line1,
+    shippingAddress?.line2,
+    shippingAddress?.city,
+    shippingAddress?.state,
+    shippingAddress?.postal_code,
+    shippingAddress?.country
+  ]
 
-  console.log("eeeeeeeeeeeeee", event.type)
+  const addressString = addressComponents.filter((c) => c !== null).join(', ');
+  const shippingString = shippingComponents.filter((c) => c !== null).join(', ');
+
+  // console.log("eeeeeeeeeeeeee", addressString)
+
 
   const user = await db.user.findFirst({
     where: {
@@ -78,6 +93,8 @@ export async function POST(req: Request) {
       data: {
         isPaid: true,
         address: addressString,
+        ShippingAddress: shippingString,
+        email: email || '',
         phone: session?.customer_details?.phone || '',
       },
       include: {
@@ -88,7 +105,7 @@ export async function POST(req: Request) {
         },
       }
     })
-
+ 
     console.log("%%%%%%%%%%%%%%%", order)
     // send receipt email
     const formattedDate = formatISO(new Date());

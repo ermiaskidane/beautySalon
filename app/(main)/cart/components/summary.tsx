@@ -25,6 +25,10 @@ const Summary = () => {
   }, 0);
 
   const onCheckout = async () => {
+    
+    // router.push("/address")
+    // since shipping address is collected from stripe we don't have
+    // to collect from address page (redundant)
     const response = await axios.post(`/api/checkout`, {
       productIds: items.map((item) => item.id)
     });
@@ -77,7 +81,7 @@ const Summary = () => {
          {/* <Currency value={totalPrice} /> */}
       </div>
       <Button onClick={onCheckout} disabled={items.length === 0} className="w-full mt-6">
-        Checkout
+        Next
       </Button>
     </div>
   );
