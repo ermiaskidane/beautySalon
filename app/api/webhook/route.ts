@@ -111,7 +111,8 @@ export async function POST(req: Request) {
     const formattedDate = formatISO(new Date());
     try {
       const data = await resend.emails.send({
-        from: 'LeospaBeauty <onboarding@resend.dev>',
+        from: 'LeospaBeauty <hello@ermiaskidane.online>',
+        // from: 'LeospaBeauty <onboarding@resend.dev>',
         to: [user.email],
         subject:
             'Thanks for your order! This is your receipt.',

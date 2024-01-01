@@ -84,9 +84,9 @@ export async function POST(
   // the $1 fee charged in every transaction
   line_items.push({
     // live mode
-    price: "price_1OTV4aHYPeXn9RHVtY2dX8b6",
+    // price: "price_1OTV4aHYPeXn9RHVtY2dX8b6",
     // test mode
-    // price: "price_1OOkKSHYPeXn9RHVUMTzc8nS",
+    price: "price_1OOkKSHYPeXn9RHVUMTzc8nS",
     quantity: 1,
     adjustable_quantity: {
       enabled: false,
