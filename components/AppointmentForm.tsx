@@ -165,13 +165,13 @@ const AppointmentForm = ({bookedAppointment}: AppointmentFormProps) => {
         <div className='select-field'>
           <select
             name='service'
-            defaultValue='s1'
+            defaultValue=''
             onChange={inputChangeHandler}
           >
             <option value=''>Select service</option>
-            <option value='s1'>Select service 1</option>
-            <option value='s2'>Select service 2</option>
-            <option value='s3'>Select service 3</option>
+            <option value='s1'>service 1</option>
+            <option value='s2'>service 2</option>
+            <option value='s3'>service 3</option>
           </select>
         </div>
         <input
