@@ -36,7 +36,7 @@ export const POST = async (req: Request) => {
 
 
     const mailData = {
-      from: 'LeospaBeauty <onboarding@resend.dev>',
+      from: 'LeospaBeauty <hello@ermiaskidane.online>',
       to: 'sotyu28@gmail.com',
       subject: `Message From ${firstName}`,
       text: message + " | Sent from: " + email,
