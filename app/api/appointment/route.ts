@@ -80,7 +80,7 @@ export async function POST (
 
   return NextResponse.json(book);
   } catch(error) {
-    console.log('[BLOG_POST]', error);
+    console.log('[APPOINTMENT_API]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
